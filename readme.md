@@ -1,141 +1,220 @@
-# Unity Care Clinic – Base de Données & Exercices SQL
+# SQL Documentation — Concepts & Commands
 
-## 📌 Contexte du Projet
+## 1. Data & Metadata
 
-**Objectif Principal :**  
-Développer une base de données performante et bien architecturée, capable de supporter toutes les fonctionnalités opérationnelles d'Unity Care Clinic et de garantir une gestion optimale des données.
-
-## 🏥 Description Fonctionnelle
-
-La base de données constitue le socle d’un **système complet de gestion hospitalière**. Elle centralise et gère de manière fiable et sécurisée les informations suivantes :
-
-- Départements et personnel (médecins, administratif)
-- Patients et admissions
-- Gestion des chambres
-- Planification des rendez-vous
-- Gestion des médicaments et prescriptions
-
-## 🛠️ Composantes Techniques
-
-### 📘 Schéma de Base de Données
-Les tables sont définies à partir du schéma fourni.
-
-### 🎯 Exercices Pratiques SQL (20 exercices)
-
-Les exercices couvrent :
-
-- **CRUD** (Create, Read, Update, Delete)
-- **SELECT, WHERE, ORDER BY, LIMIT, DISTINCT**
-- Opérateurs logiques, fonctions d’agrégation (**COUNT, AVG, MAX, SUM**)
-- Contraintes & jointures
-- **GROUP BY, HAVING**
-- Création de vues
-
-### 🧩 Exercices Bonus (5 requêtes avancées)
-Jointures complexes pour renforcer la maîtrise des relations entre les tables.
+**Data:** Raw information.  
+**Metadata:** Information describing data (types, keys, schema…).
 
 ---
 
-# 📚 Exercices SQL
+## 2. Entities, Attributes & Relationships
 
-### 1. CRUD Operation  
-Insérer un nouveau patient nommé *Alex Johnson*, né le 15 juillet 1990, sexe masculin, téléphone "1234567890".
-
-### 2. SELECT  
-Récupérer tous les départements avec leurs emplacements.
-
-### 3. ORDER BY  
-Lister tous les patients triés par date de naissance (ascendant).
-
-### 4. DISTINCT  
-Afficher les sexes des patients sans doublon.
-
-### 5. LIMIT  
-Récupérer les 3 premiers médecins.
-
-### 6. WHERE  
-Patients nés après l’année 2000.
-
-### 7. Logical Operators  
-Médecins des départements **Cardiology** et **Neurology**.
-
-### 8. Special Operators  
-Admissions entre le 1er et le 7 décembre 2024.
-
-### 9. Conditional Expressions  
-Ajouter une colonne catégorisant les patients :  
-*Enfant, Adulte, Senior* selon leur âge.
-
-### 10. COUNT  
-Compter le nombre total de rendez-vous.
-
-### 11. COUNT + GROUP BY  
-Nombre de médecins par département.
-
-### 12. AVG  
-Âge moyen des patients.
-
-### 13. MAX  
-Dernière date et heure de rendez-vous.
-
-### 14. SUM  
-Nombre total d’admissions par chambre.
-
-### 15. Constraints  
-Patients dont le champ *email* est vide.
-
-### 16. Jointure  
-Rendez-vous avec nom du médecin + nom du patient.
-
-### 17. DELETE  
-Supprimer tous les rendez-vous avant 2024.
-
-### 18. UPDATE  
-Renommer le département **Oncology** → **Cancer Treatment**.
-
-### 19. HAVING  
-Genres ayant au moins 2 patients.
-
-### 20. View  
-Créer une vue des admissions en cours.
+- **Strong Entity:** Independent (Product, Patient)
+- **Weak Entity:** Depends on another (Order Items)
+- **Attribute Types:**
+  - Simple
+  - Composite
+  - Multivalued
+  - Derived
 
 ---
 
-# ⭐ Bonus – Jointures Avancées
+## 3. Database Commands
 
-### Bonus 1  
-Patients et leurs médecins traitants (patients + admissions + doctors).
-
-### Bonus 2  
-Liste des rendez-vous avec leur département.
-
-### Bonus 3  
-Médicaments prescrits par chaque médecin.
-
-### Bonus 4  
-Admissions et chambres associées.
-
-### Bonus 5  
-Statistiques : nombre de patients par département via les admissions.
+```sql
+CREATE DATABASE hospital;
+CREATE DATABASE IF NOT EXISTS hospital CHARACTER SET utf8;
+SHOW DATABASES;
+DROP DATABASE hospital;
+```
 
 ---
 
-# 🔧 Recommandations & Bonnes Pratiques
+## 4. Datatypes
 
-### 🚀 Optimisation des Performances
-- Index sur colonnes fréquemment requêtées (ID patient, ID médecin…)
-- Optimisation régulière des requêtes
-
-### 🗂️ Qualité des Données
-- Contraintes d’intégrité (UNIQUE, CHECK…)
-- Relations cohérentes entre les tables
-
-### 🔒 Sécurité
-- Chiffrement des données sensibles (email, mots de passe)
-- Gestion d’accès via rôles utilisateurs
-
-### 🛠️ Maintenance
-- Tests de performance réguliers
-- Suivi des logs et incident reports
+- String: VARCHAR, TEXT
+- Numeric: INT, FLOAT
+- JSON
+- Date & Time: DATE, TIME, DATETIME
 
 ---
+
+## 5. CRUD Operations
+
+### SELECT (Read)
+
+```sql
+SELECT column FROM table;
+SELECT first_name AS FirstName FROM employees;
+SELECT salary * 1.15 AS SalaryAfterBonus FROM employees;
+SELECT * FROM employees;
+```
+
+### WHERE
+
+```sql
+SELECT * FROM Products WHERE ProductName LIKE 'Ch%';
+SELECT productName FROM Products WHERE UnitPrice BETWEEN 10 AND 20;
+```
+
+---
+
+## 6. INSERT (Create)
+
+```sql
+INSERT INTO employees (FirstName, LastName, City)
+VALUES ('Ali','Hassan','Fes');
+```
+
+---
+
+## 7. UPDATE
+
+```sql
+UPDATE products SET unitprice = 25 WHERE productName = 'Chai';
+```
+
+---
+
+## 8. DELETE
+
+```sql
+DELETE FROM table WHERE condition;
+```
+
+Transactions:
+
+```sql
+BEGIN TRANSACTION;
+DELETE FROM table WHERE condition;
+ROLLBACK; -- or COMMIT;
+```
+
+---
+
+## 9. DISTINCT & ORDER BY
+
+```sql
+SELECT DISTINCT country FROM Suppliers ORDER BY country;
+SELECT productName, UnitPrice FROM Products ORDER BY UnitPrice DESC;
+```
+
+---
+
+## 10. LIMIT & OFFSET
+
+```sql
+SELECT * FROM Products ORDER BY UnitPrice DESC LIMIT 3;
+SELECT * FROM Orders ORDER BY OrderDate LIMIT 5 OFFSET 10;
+```
+
+---
+
+## 11. Aggregate Functions
+
+```sql
+SELECT COUNT(*), SUM(freight), AVG(freight), MAX(freight), MIN(freight)
+FROM Orders;
+```
+
+---
+
+## 12. GROUP BY & HAVING
+
+```sql
+SELECT CustomerID, COUNT(OrderID)
+FROM Orders
+GROUP BY CustomerID
+HAVING COUNT(OrderID) > 140;
+```
+
+---
+
+## 13. Working with NULL
+
+```sql
+SELECT * FROM Customers WHERE Region IS NULL;
+SELECT * FROM Customers WHERE Region IS NOT NULL;
+```
+
+---
+
+## 14. Formatting (printf & strftime)
+
+```sql
+SELECT printf('%.2f USD', UnitPrice) FROM Products;
+SELECT strftime('%d/%m/%Y', OrderDate) FROM Orders;
+```
+
+---
+
+## 15. CASE Expression
+
+```sql
+CASE
+  WHEN Freight IS NULL THEN 'Unknown'
+  WHEN Freight BETWEEN 0 AND 10 THEN '0-10'
+  ELSE '>10'
+END AS FreightRange
+```
+
+---
+
+## 16. Keys & Constraints
+
+### Primary Key
+
+```sql
+CREATE TABLE etudiant (
+  cne VARCHAR(50) PRIMARY KEY
+);
+```
+
+### Foreign Key
+
+```sql
+CREATE TABLE groupe (
+  id INT PRIMARY KEY
+);
+
+CREATE TABLE etudiant (
+  cne VARCHAR(50) PRIMARY KEY,
+  groupe_id INT,
+  FOREIGN KEY (groupe_id) REFERENCES groupe(id)
+);
+```
+
+---
+
+## 17. Joins
+
+### INNER JOIN
+
+```sql
+SELECT Customers.CustomerID, Orders.OrderID
+FROM Customers
+INNER JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+```
+
+### Multi-Join
+
+```sql
+SELECT
+  Customers.CompanyName AS Customer,
+  Orders.OrderID,
+  CONCAT(Employees.FirstName, ' ', Employees.LastName) AS Employee
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID;
+```
+
+---
+
+## Popular Errors
+
+- Missing **ON** in JOIN
+- Missing table prefix: `Orders.OrderID`
+
+---
+
+**End of documentation.**
