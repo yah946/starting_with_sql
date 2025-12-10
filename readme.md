@@ -23,6 +23,7 @@
 
 ```sql
 CREATE DATABASE hospital;
+USE hospital;
 CREATE DATABASE IF NOT EXISTS hospital CHARACTER SET utf8;
 SHOW DATABASES;
 DROP DATABASE hospital;
@@ -218,3 +219,4 @@ INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID;
 ---
 
 **End of documentation.**
+
