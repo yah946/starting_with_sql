@@ -208,7 +208,19 @@ FROM Orders
 INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
 INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID;
 ```
+---
 
+## Alter
+
+```sql
+ALTER TABLE table_name
+ADD column_name data_type
+[constraints];
+--Example:
+ALTER TABLE Perso
+ADD role varchar(20) NOT NULL
+AFTER email;
+```
 ---
 
 ## Popular Errors
@@ -218,5 +230,7 @@ INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID;
 
 ---
 
+
 **End of documentation.**
+
 
