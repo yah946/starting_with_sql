@@ -1,4 +1,4 @@
-# SQL Documentation — Concepts & Commands
+# SQL Documentation: Concepts & Commands
 
 ## 1. Data & Metadata
 
@@ -210,16 +210,60 @@ INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID;
 ```
 ---
 
-## Alter
+## 18. Alter
 
 ```sql
 ALTER TABLE table_name
 ADD column_name data_type
 [constraints];
---Example:
-ALTER TABLE Perso
-ADD role varchar(20) NOT NULL
+```
+---
+## ADD Multiple Columns
+
+```sql
+ALTER TABLE users
+ADD created_at TIMESTAMP,
+ADD updated_at TIMESTAMP;
+```
+---
+## ADD Column at a Specific Position
+
+```sql
+ALTER TABLE users
+ADD phone VARCHAR(15)
 AFTER email;
+```
+---
+## MODIFY: Change column type/properties
+
+```sql
+ALTER TABLE users
+MODIFY password VARCHAR(255) NOT NULL;
+```
+---
+## CHANGE: Rename column + modify
+
+```sql
+ALTER TABLE users
+CHANGE password password_hash VARCHAR(255) NOT NULL;
+```
+---
+## DROP: Delete a column
+```sql
+ALTER TABLE users
+DROP COLUMN phone;
+```
+---
+## RENAME COLUMN
+```sql
+ALTER TABLE users
+RENAME COLUMN username TO login_name;
+```
+---
+## RENAME Table
+```sql
+ALTER TABLE users
+RENAME To Person;
 ```
 ---
 
@@ -232,5 +276,6 @@ AFTER email;
 
 
 **End of documentation.**
+
 
 
