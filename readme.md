@@ -218,7 +218,7 @@ ADD column_name data_type
 [constraints];
 ```
 ---
-## ADD Multiple Columns
+### ADD Multiple Columns
 
 ```sql
 ALTER TABLE users
@@ -226,7 +226,7 @@ ADD created_at TIMESTAMP,
 ADD updated_at TIMESTAMP;
 ```
 ---
-## ADD Column at a Specific Position
+### ADD Column at a Specific Position
 
 ```sql
 ALTER TABLE users
@@ -234,39 +234,47 @@ ADD phone VARCHAR(15)
 AFTER email;
 ```
 ---
-## MODIFY: Change column type/properties
+### MODIFY: Change column type/properties
 
 ```sql
 ALTER TABLE users
 MODIFY password VARCHAR(255) NOT NULL;
 ```
 ---
-## CHANGE: Rename column + modify
+### CHANGE: Rename column + modify
 
 ```sql
 ALTER TABLE users
 CHANGE password password_hash VARCHAR(255) NOT NULL;
 ```
 ---
-## DROP: Delete a column
+### DROP: Delete a column
 ```sql
 ALTER TABLE users
 DROP COLUMN phone;
 ```
 ---
-## RENAME COLUMN
+### RENAME COLUMN
 ```sql
 ALTER TABLE users
 RENAME COLUMN username TO login_name;
 ```
 ---
-## RENAME Table
+### RENAME Table
 ```sql
 ALTER TABLE users
 RENAME To Person;
 ```
 ---
+## 19. Information_schema
 
+```sql
+SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_DEFAULT
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = 'database_name'
+AND TABLE_NAME = 'table_name';
+```
+---
 ## Popular Errors
 
 - Missing **ON** in JOIN
@@ -276,6 +284,7 @@ RENAME To Person;
 
 
 **End of documentation.**
+
 
 
 
