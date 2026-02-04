@@ -208,6 +208,38 @@ FROM Orders
 INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
 INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID;
 ```
+### left join
+
+```sql
+SELECT ...
+FROM left_table lt
+LEFT JOIN right_table rt ON lt.key = rt.key;
+```
+### Multi-join
+
+```sql
+select
+	c.CustomerID,
+	c.CompanyName,
+	count(distinct o.OrderID) as OrdersCount,
+	count(od.OrderID) as OrderLine,
+	sum(od.Quantity * od.UnitPrice) as revenue,
+	concat(e.FirstName," ",e.LastName)
+from
+	Customers c
+left join Orders o
+	on
+	c.CustomerID = o.CustomerID
+left join [order details] od
+	on
+	o.orderid = od.OrderID
+left join employees e
+	on
+	o.EmployeeID = e.EmployeeID
+group by c.CustomerID,c.CompanyName
+order by OrdersCount desc, revenue desc
+limit 50;
+```
 ---
 
 ## 18. Alter
@@ -284,6 +316,7 @@ AND TABLE_NAME = 'table_name';
 
 
 **End of documentation.**
+
 
 
 
